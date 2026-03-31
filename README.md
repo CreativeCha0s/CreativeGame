@@ -25,4 +25,4 @@ Levels Class
 Implementing gravity and colissions will be the most difficult part of the project.
 
 ## Class Diagram
-[Class Diagram] (images/UML.png)
+! [Class Diagram] (images/UML.png)
