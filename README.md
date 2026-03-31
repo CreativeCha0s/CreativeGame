@@ -26,3 +26,6 @@ Implementing gravity and colissions will be the most difficult part of the proje
 
 ## Class Diagram
 ![Class Diagram](https://github.com/CreativeCha0s/CreativeGame/blob/main/images/UML.png?raw=true)
+
+## Mockup
+![Mockup](https://github.com/CreativeCha0s/CreativeGame/blob/main/images/ABmockup.png?raw=true)
