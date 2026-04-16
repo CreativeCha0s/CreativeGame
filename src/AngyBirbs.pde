@@ -1,8 +1,8 @@
-PImage player;
+Player player;
+float x, y, speed;
+float anchorX = 350, anchorY = 600;
+boolean drag = false;
 
-float playerX, playerY;
-float easing = 0.05;
-int inBounds;
 
 void setup() {
   size(1600, 900);
@@ -11,43 +11,37 @@ void setup() {
   strokeWeight(2);
   stroke(255, 100);
 
-
-  //image setup
-  player = loadImage("testCharacter.png");
-  imageMode(CENTER);
+  player = new Player(anchorX, anchorY, 30);
 }
 
 void draw() {
   background(255);
-
-  float areaX = 100;
-  float areaY = 400;
-  float areaW = 250;
-  float areaH = 400;
+  fill(80);
+  ellipse(anchorX, anchorY, 12, 12);
+  imageMode(CENTER);
   
-  if(inBounds == 1) {
-  noFill();
-  stroke(200);
-  strokeWeight(2);
-  rect(areaX, areaY, areaW, areaH);
-  } else {
-    noFill();
-  stroke(200);
-  strokeWeight(2);
-  rect(areaX, areaY, areaW, areaH);
-  }
 
-  if (mouseX > areaX && mouseX < areaX + areaW && mouseY > areaY && mouseY < areaY + areaH) {
-    inBounds = 1;
-    imageMode(CENTER);
-    stroke(255, 0, 0);
-    strokeWeight(5);
-    line(325, 600, mouseX, mouseY);
-    image(player, mouseX+35, mouseY-10);
-    line(375, 600, mouseX, mouseY);
-  } else {
-    inBounds = 0;
-    fill(150);
-    image(player, 350, 600);
+
+  player.update();
+  player.display();
+  player.drag();
+}
+
+
+void mousePressed() {
+  if (!player.moving && player.mouseOn(mouseX, mouseY)) {
+    drag = true;
+  }
+}
+void mouseDragged() {
+  if (drag) {
+    player.x = mouseX;
+    player.y = mouseY;
+  }
+}
+void mouseReleased() {
+  if (drag) {
+    player.launch(anchorX, anchorY, mouseX, mouseY);
+    drag = false;
   }
 }
