@@ -1,7 +1,8 @@
 class Player {
-  float x, y, xSpeed, ySpeed, size;
+  float x, y, z, xSpeed, ySpeed, size;
   boolean moving, launched;
   PImage player;
+  PVector position, velocity, gravity;
 
   Player(float startX, float startY, float s) {
     x = startX;
@@ -9,7 +10,9 @@ class Player {
     xSpeed = 0;
     ySpeed = 0;
     size = s;
+
     moving = false;
+
   }
   void update() {
     if (moving) {
@@ -25,6 +28,7 @@ class Player {
   void launch(float anchorX, float anchorY, float releaseX, float releaseY) {
     float dx = anchorX - releaseX;
     float dy = anchorY - releaseY;
+    
 
     x = anchorX;
     y = anchorY;
@@ -32,10 +36,11 @@ class Player {
     xSpeed = dx * 0.06;
     ySpeed = dy * 0.06;
 
+    
     moving = true;
     launched = true;
   }
-
+  
 
 
   boolean mouseOn(float mx, float my) {
