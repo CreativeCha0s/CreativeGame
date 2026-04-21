@@ -24,6 +24,10 @@ Levels Class
 ## Challenges
 Implementing gravity and colissions will be the most difficult part of the project.
 
+## Phase 3 Report
+While there are many parts of the game that I need assistance with, I have been able to create different screens, as well as implementing the enemies, and score.
+My next goal is to get gravity working.
+
 ## Class Diagram
 ![Class Diagram](https://github.com/CreativeCha0s/CreativeGame/blob/main/images/UML.png?raw=true)
 
