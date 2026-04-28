@@ -16,14 +16,8 @@ class Player {
   }
   void update() {
     //if (moving) {
-      x += xSpeed * xDir;
-      y += ySpeed * yDir;
-       if (x > width) {
-      xDir *= -1;
-    }
-    if (y > height) {
-      yDir *= -1;
-    }
+    x += xSpeed * xDir;
+    y += ySpeed * yDir;
   }
   void display() {
     player = loadImage("testCharacter.png");
@@ -42,14 +36,19 @@ class Player {
     xSpeed = dx * 0.06 * xDir;
     ySpeed = dy * 0.06 * yDir;
 
-   
+    if (x > width) {
+      xDir *= -1;
+    }
+    if (y > height) {
+      yDir *= -1;
+    }
 
     moving = true;
     launched = true;
   }
 
- 
-  
+
+
 
   boolean mouseOn(float mx, float my) {
     float d = dist(mx, my, x, y);
