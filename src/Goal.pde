@@ -1,15 +1,15 @@
-class EnemyAndStructure {
+class Goal {
+
   float x, y, w, h;
   boolean hit;
 
 
-  EnemyAndStructure(float xPos, float yPos, float width, float height) {
+  Goal(float xPos, float yPos, float width, float height) {
     x = xPos;
     y = yPos;
     w = width;
     h = height;
     hit = false;
- 
   }
 
   void display() {
@@ -22,7 +22,7 @@ class EnemyAndStructure {
     stroke(0);
     rect(x, y, w, h);
   }
-
+  
   boolean isHitBy(Player p) {
     float left = x - w/2;
     float right = x + w/2;
