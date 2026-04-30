@@ -1,9 +1,9 @@
-class Obstacles {
+class Obstacle {
 Player player;
   float oX, oY, oW, oH;
   boolean moving, hit;
 
-  Obstacles(float x, float y, float w, float h) {
+  Obstacle(float x, float y, float w, float h) {
     this.oX = x;
     this.oY = y;
     this.oW = w;
