@@ -1,5 +1,6 @@
 Player player;
 Goal[] goal;
+Obstacle[] obstacles;
 
 float x, y, speed, enemyCount = 0, lvlComplete;
 float anchorX = 350, anchorY = 600;
@@ -24,6 +25,8 @@ void setup() {
   goal = new Goal[1];
   goal[0] = new Goal(600, 200, 60, 60);
 
+  obstacles = new Obstacle[1];
+  obstacles[0] = new Obstacle(600, 200, 50, 250);
 
   btnPlay = new Button("Play", 800, 400, 400, 100, #ff9538, #ffd1a8, 150);
   btnLvl1 = new Button("Level 1", 800, 400, 400, 100, #ff9538, #ffd1a8, 150);
@@ -82,6 +85,7 @@ void gameScreen() {
   player.update();
   player.display();
   player.drag();
+  obstacles[0].display();
 
   for (int i = 0; i < goal.length; i++) {
     goal[i].display();
@@ -93,89 +97,106 @@ void gameScreen() {
       }
     }
   }
-
-  if (lvlComplete == 1) {
-    screen = 'L';
-    player.moving = false;
+  for (int j = 0; j < obstacles.length; j++) {
+    
+    if (player.intersect(obstacles[0])) {
+      player.xSpeed *= -1;
+      player.ySpeed *= -1;
+    }
+    //if (obstacles[j].isHitBy(player)) {
+    //  player.xSpeed *= -1;
+    //  player.ySpeed *= -1;
+    //}
+    //if (!obstacles[j].hit) {
+    //  if (obstacles[j].isHitBy(player)) {
+    //    player.xSpeed *= -1;
+    //  }
+    //}
   }
-}
+  
 
-void pauseScreen() {
-  background(255);
-  textSize(200);
-  textAlign(CENTER, CENTER);
-  fill(0);
-  text("Level Complete!", 800, 300);
-  btnNextLvl.display();
-}
-
-void mousePressed() {
-  switch(screen) {
-  case 'S':
-    if (btnPlay.clicked()) {
-      screen = 'P';
+    if (lvlComplete == 1) {
+      screen = 'L';
+      player.moving = false;
     }
-    break;
+  }
 
-  case 'P':
-    if (btnLvl1.clicked()) {
-      level = 1;
-      screen = 'G';
-    }
-    break;
+  void pauseScreen() {
+    background(255);
+    textSize(200);
+    textAlign(CENTER, CENTER);
+    fill(0);
+    text("Level Complete!", 800, 300);
+    btnNextLvl.display();
+  }
 
-  case 'G':
-    if (!player.moving && player.mouseOn(mouseX, mouseY)) {
-      drag = true;
-    }
-    break;
-
-  case 'L':
-    if (btnNextLvl.clicked()) {
-      screen = 'G';
-      resetGame();
-      if (level == 1) {
-        level = 2;
-      } else if (level == 2) {
-        level = 3;
-      } else if (level == 3) {
-        screen = 'S';
+  void mousePressed() {
+    switch(screen) {
+    case 'S':
+      if (btnPlay.clicked()) {
+        screen = 'P';
       }
       break;
+
+    case 'P':
+      if (btnLvl1.clicked()) {
+        level = 1;
+        screen = 'G';
+      }
+      break;
+
+    case 'G':
+      if (!player.moving && player.mouseOn(mouseX, mouseY)) {
+        drag = true;
+      }
+      break;
+
+    case 'L':
+      if (btnNextLvl.clicked()) {
+        screen = 'G';
+        resetGame();
+        if (level == 1) {
+          level = 2;
+        } else if (level == 2) {
+          level = 3;
+        } else if (level == 3) {
+          screen = 'S';
+        }
+        break;
+      }
     }
   }
-}
 
 
-void mouseDragged() {
-  if (drag) {
-    player.x = mouseX;
-    player.y = mouseY;
+  void mouseDragged() {
+    if (drag) {
+      player.x = mouseX;
+      player.y = mouseY;
+    }
   }
-}
 
-void mouseReleased() {
-  if (drag) {
-    player.launch(anchorX, anchorY, mouseX, mouseY);
-    drag = false;
+  void mouseReleased() {
+    if (drag) {
+      player.launch(anchorX, anchorY, mouseX, mouseY);
+      drag = false;
+    }
   }
-}
 
-void keyPressed() {
-  if (key == 'r' || key == 'R') {
+  void keyPressed() {
+    if (key == 'r' || key == 'R') {
+      resetPlayer();
+    }
+  }
+
+  void resetPlayer() {
+    player.x = anchorX;
+    player.y = anchorY;
+    player.xSpeed = 0;
+    player.ySpeed = 0;
+    player.moving = false;
+    player.launched = false;
+  }
+  void resetGame() {
     resetPlayer();
+    lvlComplete = 0;
   }
-}
-
-void resetPlayer() {
-  player.x = anchorX;
-  player.y = anchorY;
-  player.xSpeed = 0;
-  player.ySpeed = 0;
-  player.moving = false;
-  player.launched = false;
-}
-void resetGame() {
-  resetPlayer();
-  lvlComplete = 0;
-}
