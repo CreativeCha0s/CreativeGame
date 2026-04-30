@@ -86,6 +86,7 @@ void gameScreen() {
   player.display();
   player.drag();
   obstacles[0].display();
+  obstacles[0].update(player);
 
   for (int i = 0; i < goal.length; i++) {
     goal[i].display();
