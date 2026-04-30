@@ -1,5 +1,4 @@
 class Obstacle {
-Player player;
   float oX, oY, oW, oH;
   boolean moving, hit;
 
@@ -17,7 +16,28 @@ Player player;
     stroke(1);
     rect(oX, oY, oW, oH);
   }
-
+  
+  void update(Player p) {
+    
+    float oR = 25;
+    
+    if (player.x <= oR) {
+      player.x = oR;
+      player.xSpeed *= -1;
+    }
+     if (player.x >= oX - oR) {
+        x = oX - oR;
+        player.xSpeed *= -1;
+      }
+      if (player.y <= oR) {
+      player.y = oR;
+      player.ySpeed *= -1;
+    }
+     if (player.y >= oY - oR) {
+        x = oY - oR;
+        player.ySpeed *= -1;
+      }
+  }
    
   boolean isHitBy(Player p) {
     float left = x - oW/2;
