@@ -1,4 +1,3 @@
-// some assistance from Mr. Kapptie
 class Player {
   float x, y, xSpeed, ySpeed, size;
   boolean moving, launched;
@@ -37,17 +36,18 @@ class Player {
         xSpeed *= -1;
       }
 
-      if (y <= r) {
-        y = r;
-        ySpeed *= -1;
-      }
+        if (y <= r) {
+          y = r;
+          ySpeed *= -1;
+        }
 
-      if (y >= height - r) {
-        y = height - r;
-        ySpeed *= -1;
+        if (y >= height - r) {
+          y = height - r;
+          ySpeed *= -1;
+        }
       }
     }
-  }
+  
 
   void launch(float anchorX, float anchorY, float releaseX, float releaseY) {
     float dx = anchorX - releaseX;
@@ -74,4 +74,14 @@ class Player {
       line(375, 600, mouseX, mouseY);
     }
   }
+  boolean intersect(Obstacle o) {
+    float d = dist(x, y, o.oX, o.oX);
+    if (d < 100) {
+      return true;
+    } else {
+      return false;
+    }    
+
+  }
 }
+
